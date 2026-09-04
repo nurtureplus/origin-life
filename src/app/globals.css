@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #ffffff;
+  --paper-soft: #f8f9fc;
+  --paper-softer: #eff2f7;
+  --ink: #121317;
+  --ink-soft: #45474d;
+  /* Darkened from #7d818a, which only reached 3.90:1 on white and 3.48:1 on
+     --paper-softer — under the 4.5:1 WCAG AA floor for body text. This clears
+     AA on every surface it's used on (5.11 / 4.85 / 4.55). */
+  --ink-faint: #6a6e77;
+  /* Watermark numerals and similar oversized type. Meets the 3:1 large-text
+     floor (3.03:1 on --paper-soft) — do not use it below 24px. */
+  --ink-muted: #8a9199;
+  --line: #e1e6ec;
+  --line-strong: #cdd4dc;
+  --accent: #3d5b2a;
+  --accent-ink: #ffffff;
+  --dark: #121317;
+  --dark-soft: #1c1d21;
+  --dark-line: rgba(255, 255, 255, 0.1);
+  --dark-text: #f8f9fc;
+  --dark-text-soft: rgba(248, 249, 252, 0.62);
+
+  --chip-bg: rgba(183, 191, 217, 0.09);
+  --chip-border: rgba(18, 19, 23, 0.06);
+
+  --brand-orange: #e29225;
+  --brand-teal: #6fc4c3;
+  --brand-brown: #5c441c;
+  --brand-gray: #6b6b6b;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-soft: var(--paper-soft);
+  --color-paper-softer: var(--paper-softer);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-dark: var(--dark);
+  --color-dark-soft: var(--dark-soft);
+  --color-dark-line: var(--dark-line);
+  --color-dark-text: var(--dark-text);
+  --color-dark-text-soft: var(--dark-text-soft);
+  --color-chip-bg: var(--chip-bg);
+  --color-chip-border: var(--chip-border);
+
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-brown: var(--brand-brown);
+  --color-brand-gray: var(--brand-gray);
+
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.container-page {
+  max-width: 84rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 2.5rem;
+  }
+}
+
+.text-display {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+}
+
+.text-tight {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.hairline {
+  border-top: 1px solid var(--line);
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-18px) rotate(2deg); }
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+@keyframes float-chip {
+  0%, 100% { transform: translateY(0px) rotate(var(--chip-rot, 0deg)); }
+  50% { transform: translateY(var(--chip-drift, -14px)) rotate(var(--chip-rot-alt, 0deg)); }
+}
+
+.animate-float-chip {
+  animation: float-chip var(--chip-duration, 6s) ease-in-out infinite;
+  animation-delay: var(--chip-delay, 0s);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes glow-drift-a {
+  0%   { transform: translate(0%, 0%) scale(1); opacity: 0.55; }
+  25%  { transform: translate(14%, 10%) scale(1.2); opacity: 0.85; }
+  50%  { transform: translate(4%, 22%) scale(0.95); opacity: 0.65; }
+  75%  { transform: translate(-12%, 8%) scale(1.15); opacity: 0.8; }
+  100% { transform: translate(0%, 0%) scale(1); opacity: 0.55; }
+}
+
+@keyframes glow-drift-b {
+  0%   { transform: translate(0%, 0%) scale(1); opacity: 0.5; }
+  25%  { transform: translate(-16%, -8%) scale(1.25); opacity: 0.82; }
+  50%  { transform: translate(-6%, 14%) scale(1); opacity: 0.6; }
+  75%  { transform: translate(10%, 6%) scale(1.18); opacity: 0.78; }
+  100% { transform: translate(0%, 0%) scale(1); opacity: 0.5; }
+}
+
+@keyframes glow-drift-c {
+  0%   { transform: translate(0%, 0%) scale(1); opacity: 0.5; }
+  25%  { transform: translate(-10%, -16%) scale(1.15); opacity: 0.82; }
+  50%  { transform: translate(12%, -6%) scale(1.25); opacity: 0.6; }
+  75%  { transform: translate(6%, 12%) scale(0.95); opacity: 0.78; }
+  100% { transform: translate(0%, 0%) scale(1); opacity: 0.5; }
+}
+
+.animate-glow-a {
+  animation: glow-drift-a 14s ease-in-out infinite;
+}
+
+.animate-glow-b {
+  animation: glow-drift-b 17s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-glow-c {
+  animation: glow-drift-c 15s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+/* The ambient loops (glow drift, float, fade-up) run forever and are decorative
+   by definition, so nothing is lost by stopping them for people who ask the OS
+   to reduce motion. `HeroCarousel` already checks the same query in JS to skip
+   autoplay; this covers everything driven by CSS. Durations are collapsed to a
+   near-zero value rather than set to `none` so animations that carry a final
+   state (fade-up ends at opacity 1) still land on it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
